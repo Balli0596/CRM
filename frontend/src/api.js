@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api" || "https://crm-production-d30a.up.railway.app/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "https://crm-production-d30a.up.railway.app/api";
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE_URL}${path}`, {
