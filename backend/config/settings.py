@@ -11,9 +11,18 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
 DEBUG = os.getenv("DEBUG", "True") == "True"
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "crm-production-d30a.up.railway.app",
+]
 
-ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") if h.strip()]
-# Railway/Render supply this so the app is reachable on its public domain.
+# Also allow hosts provided via environment variables
+ALLOWED_HOSTS += [
+    h.strip()
+    for h in os.getenv("ALLOWED_HOSTS", "").split(",")
+    if h.strip()
+]# Railway/Render supply this so the app is reachable on its public domain.
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
