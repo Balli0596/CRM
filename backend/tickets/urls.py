@@ -1,10 +1,7 @@
 from django.urls import path
 from . import views
 
-from django.http import HttpResponse
-
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api/", include("tickets.urls")),
-    path("test", lambda request: HttpResponse("Railway is updated")),
+    path("tickets", views.ticket_list_create, name="ticket-list-create"),
+    path("tickets/<str:ticket_id>", views.ticket_detail, name="ticket-detail"),
 ]
