@@ -105,7 +105,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-CORS_ALLOWED_ORIGINSS=["http://localhost:5173","http://127.0.0.1:5173","https://crm-production-d30a.up.railway.app/api"]
+CORS_ALLOWED_ORIGINSS=["http://localhost:5173","http://127.0.0.1:5173","https://crm-blush-iota-15.vercel.app/"]
 
 CORS_ALLOWED_ORIGINS = [
     o.strip() for o in CORS_ALLOWED_ORIGINSS.split(",") if o.strip()
