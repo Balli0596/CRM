@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR /"backend/.env")
+load_dotenv(BASE_DIR /".env")
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
 DEBUG = os.getenv("DEBUG", "True") == "True"
@@ -16,6 +16,18 @@ ALLOWED_HOSTS = [
     "localhost",
     "crm-production-d30a.up.railway.app",
 ]
+
+env_hosts = os.getenv("ALLOWED_HOSTS", "")
+if env_hosts:
+    ALLOWED_HOSTS.extend(
+        h.strip() for h in env_hosts.split(",") if h.strip()
+    )
+
+if os.getenv("RAILWAY_PUBLIC_DOMAIN"):
+    ALLOWED_HOSTS.append(os.getenv("RAILWAY_PUBLIC_DOMAIN"))
+
+if os.getenv("RENDER_EXTERNAL_HOSTNAME"):
+    ALLOWED_HOSTS.append(os.getenv("RENDER_EXTERNAL_HOSTNAME"))
 
 # Also allow hosts provided via environment variables
 ALLOWED_HOSTS += [
@@ -105,15 +117,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-CORS_ALLOWED_ORIGINSS=["http://localhost:5173","http://127.0.0.1:5173","https://crm-blush-iota-15.vercel.app/"]
-
 CORS_ALLOWED_ORIGINS = [
-    o.strip() for o in CORS_ALLOWED_ORIGINSS.split(",") if o.strip()
-]
-# Handy in local dev; tighten CORS_ALLOWED_ORIGINS for production instead of relying on this.
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://crm-blush-iota-15.vercel.app",
+]# Handy in local dev; tighten CORS_ALLOWED_ORIGINS for production instead of relying on this.
 
-CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "False") == "True"
-
+# CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "False") == "True"
+CORS_ALLOW_ALL_ORIGINS = True
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": None,
 }
