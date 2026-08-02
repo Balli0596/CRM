@@ -29,21 +29,6 @@ if os.getenv("RAILWAY_PUBLIC_DOMAIN"):
 if os.getenv("RENDER_EXTERNAL_HOSTNAME"):
     ALLOWED_HOSTS.append(os.getenv("RENDER_EXTERNAL_HOSTNAME"))
 
-# Also allow hosts provided via environment variables
-ALLOWED_HOSTS += [
-    h.strip()
-    for h in ALLOWED_HOSTS.split(",")
-    if h.strip()
-]
-# Railway/Render supply this so the app is reachable on its public domain.
-RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-RAILWAY_PUBLIC_DOMAIN = os.getenv("RAILWAY_PUBLIC_DOMAIN")
-if RAILWAY_PUBLIC_DOMAIN:
-    ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
-if not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
