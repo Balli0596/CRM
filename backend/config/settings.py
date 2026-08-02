@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR /"backend/.env")
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
 DEBUG = os.getenv("DEBUG", "True") == "True"
@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
 # Also allow hosts provided via environment variables
 ALLOWED_HOSTS += [
     h.strip()
-    for h in ALLOWED_HOSTS.split(",")
+    for h in os.getenv("ALLOWED_HOSTS", "").split(",")
     if h.strip()
 ]
 # Railway/Render supply this so the app is reachable on its public domain.
